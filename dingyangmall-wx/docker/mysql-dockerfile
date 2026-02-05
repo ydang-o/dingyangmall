@@ -1,0 +1,7 @@
+FROM mysql:8.0.22
+MAINTAINER www.dingyangmall.com
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+COPY ./db/dingyangmall_ry.sql /docker-entrypoint-initdb.d
+

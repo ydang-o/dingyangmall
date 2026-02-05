@@ -1,0 +1,16 @@
+FROM openjdk:17
+# author
+MAINTAINER www.dingyangmall.com
+
+# 挂载目录
+VOLUME /home/dingyangmall
+# 创建目录
+RUN mkdir -p /home/dingyangmall
+# 指定路径
+WORKDIR /home/dingyangmall
+# 复制jar文件和配置文件到路径
+COPY ./jar/*.jar /home/dingyangmall/dingyangmall.jar
+COPY ./jar/application.yml /home/dingyangmall/application.yml
+COPY ./jar/application-druid.yml /home/dingyangmall/application-druid.yml
+# 启动应用
+ENTRYPOINT ["java","-jar","dingyangmall.jar"]
