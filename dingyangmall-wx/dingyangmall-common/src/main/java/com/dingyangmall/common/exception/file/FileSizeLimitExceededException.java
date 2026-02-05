@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception.file;
+package com.dingyangmall.common.exception.file;
 
 /**
  * 文件名大小限制异常类

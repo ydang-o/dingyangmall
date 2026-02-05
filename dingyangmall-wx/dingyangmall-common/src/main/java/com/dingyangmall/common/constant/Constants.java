@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.constant;
+package com.dingyangmall.common.constant;
 
 import java.util.Locale;
 import io.jsonwebtoken.Claims;

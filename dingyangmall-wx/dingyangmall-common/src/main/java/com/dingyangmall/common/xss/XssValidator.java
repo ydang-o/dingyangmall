@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.xss;
+package com.dingyangmall.common.xss;
 
 import com.dingyangmall.common.utils.StringUtils;
 import jakarta.validation.ConstraintValidator;

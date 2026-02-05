@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.uuid;
+package com.dingyangmall.common.utils.uuid;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import com.dingyangmall.common.utils.DateUtils;

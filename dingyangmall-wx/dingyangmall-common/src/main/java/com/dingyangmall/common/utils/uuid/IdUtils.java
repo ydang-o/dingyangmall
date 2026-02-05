@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.uuid;
+package com.dingyangmall.common.utils.uuid;
 
 /**
  * ID生成器工具类

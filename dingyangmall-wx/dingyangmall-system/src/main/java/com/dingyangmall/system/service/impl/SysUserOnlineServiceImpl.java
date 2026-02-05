@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.service.impl;
+package com.dingyangmall.system.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.dingyangmall.common.core.domain.model.LoginUser;

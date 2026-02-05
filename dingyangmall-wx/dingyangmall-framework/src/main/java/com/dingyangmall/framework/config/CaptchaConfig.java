@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config;
+package com.dingyangmall.framework.config;
 
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;

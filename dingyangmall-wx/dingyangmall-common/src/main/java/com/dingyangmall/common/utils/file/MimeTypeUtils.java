@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.file;
+package com.dingyangmall.common.utils.file;
 
 /**
  * 媒体类型工具类

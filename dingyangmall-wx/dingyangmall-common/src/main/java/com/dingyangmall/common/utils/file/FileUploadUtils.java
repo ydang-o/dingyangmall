@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.file;
+package com.dingyangmall.common.utils.file;
 
 import java.io.File;
 import java.io.IOException;

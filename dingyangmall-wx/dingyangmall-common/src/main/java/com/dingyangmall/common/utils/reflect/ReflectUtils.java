@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.reflect;
+package com.dingyangmall.common.utils.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

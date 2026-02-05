@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config.typehandler;
+package com.dingyangmall.framework.config.typehandler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.controller.monitor;
+package com.dingyangmall.web.controller.monitor;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.controller.system;
+package com.dingyangmall.web.controller.system;
 
 import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;

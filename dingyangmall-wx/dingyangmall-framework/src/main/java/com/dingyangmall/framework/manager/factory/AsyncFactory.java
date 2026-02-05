@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.manager.factory;
+package com.dingyangmall.framework.manager.factory;
 
 import java.util.TimerTask;
 import org.slf4j.Logger;

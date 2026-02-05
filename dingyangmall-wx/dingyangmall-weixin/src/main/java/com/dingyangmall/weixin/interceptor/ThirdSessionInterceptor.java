@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.weixin.interceptor;
+package com.dingyangmall.weixin.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.enums;
+package com.dingyangmall.common.enums;
 
 /**
  * 业务操作类型

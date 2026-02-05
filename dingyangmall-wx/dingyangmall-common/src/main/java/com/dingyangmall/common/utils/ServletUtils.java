@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils;
+package com.dingyangmall.common.utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

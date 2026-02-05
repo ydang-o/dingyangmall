@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.service;
+package com.dingyangmall.system.service;
 
 import java.util.List;
 import com.dingyangmall.system.domain.SysLogininfor;

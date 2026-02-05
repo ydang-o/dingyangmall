@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception.user;
+package com.dingyangmall.common.exception.user;
 
 /**
  * 黑名单IP异常类

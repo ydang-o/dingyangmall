@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.sensitive;
+package com.dingyangmall.common.sensitive;
 
 /**
  * 敏感信息枚举类

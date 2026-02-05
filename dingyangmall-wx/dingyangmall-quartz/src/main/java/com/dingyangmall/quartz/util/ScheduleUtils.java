@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.util;
+package com.dingyangmall.quartz.util;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;

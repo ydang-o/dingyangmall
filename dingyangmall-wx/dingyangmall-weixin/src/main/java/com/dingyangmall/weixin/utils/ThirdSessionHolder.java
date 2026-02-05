@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.weixin.utils;
+package com.dingyangmall.weixin.utils;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.dingyangmall.weixin.entity.ThirdSession;

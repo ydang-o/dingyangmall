@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.uuid;
+package com.dingyangmall.common.utils.uuid;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

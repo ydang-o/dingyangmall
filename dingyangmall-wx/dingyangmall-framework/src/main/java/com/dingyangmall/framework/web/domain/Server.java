@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.web.domain;
+package com.dingyangmall.framework.web.domain;
 
 import java.net.UnknownHostException;
 import java.util.LinkedList;

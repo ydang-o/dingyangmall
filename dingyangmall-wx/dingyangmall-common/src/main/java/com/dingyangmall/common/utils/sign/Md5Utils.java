@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.sign;
+package com.dingyangmall.common.utils.sign;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

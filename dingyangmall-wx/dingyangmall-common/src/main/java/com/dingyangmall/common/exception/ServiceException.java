@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception;
+package com.dingyangmall.common.exception;
 
 /**
  * 业务异常

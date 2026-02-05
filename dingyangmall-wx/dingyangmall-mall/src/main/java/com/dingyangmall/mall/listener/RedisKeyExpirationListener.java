@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.mall.listener;
+package com.dingyangmall.mall.listener;
 
 import cn.hutool.core.util.StrUtil;
 import com.dingyangmall.mall.config.CommonConstants;

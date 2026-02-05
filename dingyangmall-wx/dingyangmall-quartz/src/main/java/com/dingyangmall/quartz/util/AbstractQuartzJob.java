@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.util;
+package com.dingyangmall.quartz.util;
 
 import java.util.Date;
 import org.quartz.Job;

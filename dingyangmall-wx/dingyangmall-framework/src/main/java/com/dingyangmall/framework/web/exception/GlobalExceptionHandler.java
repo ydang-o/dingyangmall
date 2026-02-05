@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.web.exception;
+package com.dingyangmall.framework.web.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

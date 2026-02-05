@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.text;
+package com.dingyangmall.common.core.text;
 
 import com.dingyangmall.common.utils.StringUtils;
 

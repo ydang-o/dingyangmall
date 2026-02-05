@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.service;
+package com.dingyangmall.system.service;
 
 import com.dingyangmall.common.core.domain.model.LoginUser;
 import com.dingyangmall.system.domain.SysUserOnline;

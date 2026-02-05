@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.web.service;
+package com.dingyangmall.framework.web.service;
 
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;

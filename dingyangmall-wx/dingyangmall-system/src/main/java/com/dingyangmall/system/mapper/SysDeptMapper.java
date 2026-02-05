@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.mapper;
+package com.dingyangmall.system.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

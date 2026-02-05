@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.aspectj;
+package com.dingyangmall.framework.aspectj;
 
 import java.util.Objects;
 import org.aspectj.lang.ProceedingJoinPoint;

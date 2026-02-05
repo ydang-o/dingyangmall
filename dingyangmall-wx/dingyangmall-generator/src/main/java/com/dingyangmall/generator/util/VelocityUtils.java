@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.util;
+package com.dingyangmall.generator.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config;
+package com.dingyangmall.framework.config;
 
 import com.dingyangmall.common.utils.Threads;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;

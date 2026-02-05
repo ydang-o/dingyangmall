@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.sql;
+package com.dingyangmall.common.utils.sql;
 
 import com.dingyangmall.common.exception.UtilException;
 import com.dingyangmall.common.utils.StringUtils;

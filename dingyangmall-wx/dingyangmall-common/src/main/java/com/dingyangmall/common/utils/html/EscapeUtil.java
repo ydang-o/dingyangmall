@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.html;
+package com.dingyangmall.common.utils.html;
 
 import com.dingyangmall.common.utils.StringUtils;
 

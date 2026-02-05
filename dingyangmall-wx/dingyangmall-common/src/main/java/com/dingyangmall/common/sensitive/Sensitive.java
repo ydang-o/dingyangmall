@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.sensitive;
+package com.dingyangmall.common.sensitive;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

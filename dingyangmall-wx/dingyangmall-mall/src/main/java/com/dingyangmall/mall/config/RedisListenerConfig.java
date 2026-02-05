@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.mall.config;
+package com.dingyangmall.mall.config;
 
 import cn.hutool.core.util.StrUtil;
 import com.dingyangmall.mall.listener.RedisKeyExpirationListener;

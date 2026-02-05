@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.service.impl;
+package com.dingyangmall.system.service.impl;
 
 import java.util.Collection;
 import java.util.List;

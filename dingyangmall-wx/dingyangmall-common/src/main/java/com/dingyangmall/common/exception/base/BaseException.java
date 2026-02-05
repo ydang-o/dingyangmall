@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception.base;
+package com.dingyangmall.common.exception.base;
 
 import com.dingyangmall.common.utils.MessageUtils;
 import com.dingyangmall.common.utils.StringUtils;

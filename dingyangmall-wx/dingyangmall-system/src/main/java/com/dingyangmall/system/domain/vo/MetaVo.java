@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.domain.vo;
+package com.dingyangmall.system.domain.vo;
 
 import com.dingyangmall.common.utils.StringUtils;
 

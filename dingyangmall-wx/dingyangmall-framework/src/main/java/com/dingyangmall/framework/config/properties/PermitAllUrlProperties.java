@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config.properties;
+package com.dingyangmall.framework.config.properties;
 
 import java.util.ArrayList;
 import java.util.List;

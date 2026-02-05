@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.redis;
+package com.dingyangmall.common.core.redis;
 
 import java.util.Collection;
 import java.util.Iterator;

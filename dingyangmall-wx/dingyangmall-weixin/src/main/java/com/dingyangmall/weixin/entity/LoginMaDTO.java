@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.weixin.entity;
+package com.dingyangmall.weixin.entity;
 
 import lombok.Data;
 

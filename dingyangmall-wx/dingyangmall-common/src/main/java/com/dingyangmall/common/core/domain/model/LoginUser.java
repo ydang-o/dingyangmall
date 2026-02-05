@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.domain.model;
+package com.dingyangmall.common.core.domain.model;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.dingyangmall.common.core.domain.entity.SysUser;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.domain;
+package com.dingyangmall.system.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

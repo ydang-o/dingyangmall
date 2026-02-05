@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.domain;
+package com.dingyangmall.system.domain;
 
 /**
  * 当前在线会话

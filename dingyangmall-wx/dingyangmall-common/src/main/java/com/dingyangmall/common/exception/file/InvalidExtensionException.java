@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception.file;
+package com.dingyangmall.common.exception.file;
 
 import java.util.Arrays;
 

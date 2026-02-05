@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.util;
+package com.dingyangmall.quartz.util;
 
 import java.text.ParseException;
 import java.util.Date;

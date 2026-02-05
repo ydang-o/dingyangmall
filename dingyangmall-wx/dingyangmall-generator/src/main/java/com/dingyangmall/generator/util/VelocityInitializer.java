@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.util;
+package com.dingyangmall.generator.util;
 
 import java.util.Properties;
 import org.apache.velocity.app.Velocity;

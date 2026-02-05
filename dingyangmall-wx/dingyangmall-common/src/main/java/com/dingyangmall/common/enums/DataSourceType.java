@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.enums;
+package com.dingyangmall.common.enums;
 
 /**
  * 数据源

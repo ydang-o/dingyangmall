@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.util;
+package com.dingyangmall.quartz.util;
 
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;

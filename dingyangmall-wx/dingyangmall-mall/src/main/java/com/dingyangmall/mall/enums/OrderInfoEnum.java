@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.mall.enums;
+package com.dingyangmall.mall.enums;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;

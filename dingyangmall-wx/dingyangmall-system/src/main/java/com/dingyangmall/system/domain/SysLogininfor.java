@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.domain;
+package com.dingyangmall.system.domain;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;

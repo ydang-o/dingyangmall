@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.constant;
+package com.dingyangmall.common.constant;
 
 /**
  * 用户常量信息

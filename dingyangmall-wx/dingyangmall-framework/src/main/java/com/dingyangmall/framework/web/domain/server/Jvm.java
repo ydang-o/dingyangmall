@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.web.domain.server;
+package com.dingyangmall.framework.web.domain.server;
 
 import java.lang.management.ManagementFactory;
 import com.dingyangmall.common.utils.Arith;

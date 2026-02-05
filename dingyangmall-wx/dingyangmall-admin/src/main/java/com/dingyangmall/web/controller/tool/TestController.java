@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.controller.tool;
+package com.dingyangmall.web.controller.tool;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

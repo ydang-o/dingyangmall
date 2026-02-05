@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.controller;
+package com.dingyangmall.generator.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

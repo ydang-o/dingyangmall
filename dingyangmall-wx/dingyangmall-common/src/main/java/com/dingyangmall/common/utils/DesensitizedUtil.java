@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils;
+package com.dingyangmall.common.utils;
 
 /**
  * 脱敏工具类

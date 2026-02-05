@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config;
+package com.dingyangmall.framework.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;

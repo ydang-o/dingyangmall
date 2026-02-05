@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config;
+package com.dingyangmall.framework.config;
 
 import java.util.Random;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;

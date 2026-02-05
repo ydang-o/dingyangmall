@@ -1,7 +1,7 @@
 import autoImport from 'unplugin-auto-import/vite'
 
 export default function createAutoImport() {
-    return autoImport({
+    return (autoImport.default || autoImport)({
         imports: [
             'vue',
             'vue-router',

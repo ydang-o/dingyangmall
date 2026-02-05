@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception;
+package com.dingyangmall.common.exception;
 
 /**
  * 演示模式异常

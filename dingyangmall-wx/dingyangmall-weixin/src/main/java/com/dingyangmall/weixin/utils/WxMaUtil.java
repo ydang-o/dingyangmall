@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.weixin.utils;
+package com.dingyangmall.weixin.utils;
 
 import com.dingyangmall.weixin.constant.ConfigConstant;
 import jakarta.servlet.http.HttpServletRequest;

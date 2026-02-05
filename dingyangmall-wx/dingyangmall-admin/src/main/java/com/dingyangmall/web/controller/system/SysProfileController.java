@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.controller.system;
+package com.dingyangmall.web.controller.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

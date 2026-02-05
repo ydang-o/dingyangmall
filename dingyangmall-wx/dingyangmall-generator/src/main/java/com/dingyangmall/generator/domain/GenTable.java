@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.domain;
+package com.dingyangmall.generator.domain;
 
 import java.util.List;
 import jakarta.validation.Valid;

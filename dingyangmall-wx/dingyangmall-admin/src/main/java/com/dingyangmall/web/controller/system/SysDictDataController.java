@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.controller.system;
+package com.dingyangmall.web.controller.system;
 
 import java.util.ArrayList;
 import java.util.List;

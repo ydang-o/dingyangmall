@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.config.serializer;
+package com.dingyangmall.common.config.serializer;
 
 import java.io.IOException;
 import java.util.Objects;

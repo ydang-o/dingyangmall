@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.domain;
+package com.dingyangmall.system.domain;
 
 import com.dingyangmall.common.utils.StringUtils;
 

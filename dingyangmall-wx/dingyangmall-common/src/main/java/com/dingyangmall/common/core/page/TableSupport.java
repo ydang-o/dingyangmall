@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.page;
+package com.dingyangmall.common.core.page;
 
 import com.dingyangmall.common.core.text.Convert;
 import com.dingyangmall.common.utils.ServletUtils;

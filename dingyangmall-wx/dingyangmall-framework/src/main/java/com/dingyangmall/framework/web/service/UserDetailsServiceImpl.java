@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.web.service;
+package com.dingyangmall.framework.web.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

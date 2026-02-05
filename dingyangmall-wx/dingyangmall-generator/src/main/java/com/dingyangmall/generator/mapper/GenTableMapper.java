@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.mapper;
+package com.dingyangmall.generator.mapper;
 
 import java.util.List;
 import com.dingyangmall.generator.domain.GenTable;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.annotation;
+package com.dingyangmall.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

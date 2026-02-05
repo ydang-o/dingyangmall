@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.web.domain.server;
+package com.dingyangmall.framework.web.domain.server;
 
 import com.dingyangmall.common.utils.Arith;
 

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.aspectj;
+package com.dingyangmall.framework.aspectj;
 
 import java.util.ArrayList;
 import java.util.List;

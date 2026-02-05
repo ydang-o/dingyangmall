@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.enums;
+package com.dingyangmall.common.enums;
 
 /**
  * 限流类型

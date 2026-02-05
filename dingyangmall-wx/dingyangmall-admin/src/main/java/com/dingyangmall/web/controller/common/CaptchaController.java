@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.controller.common;
+package com.dingyangmall.web.controller.common;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

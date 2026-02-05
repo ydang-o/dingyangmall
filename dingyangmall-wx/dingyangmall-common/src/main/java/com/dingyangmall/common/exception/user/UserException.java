@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception.user;
+package com.dingyangmall.common.exception.user;
 
 import com.dingyangmall.common.exception.base.BaseException;
 

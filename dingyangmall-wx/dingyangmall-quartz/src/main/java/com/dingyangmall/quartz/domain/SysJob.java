@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.domain;
+package com.dingyangmall.quartz.domain;
 
 import java.util.Date;
 import jakarta.validation.constraints.NotBlank;

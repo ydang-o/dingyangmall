@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.bean;
+package com.dingyangmall.common.utils.bean;
 
 import java.util.Set;
 import jakarta.validation.ConstraintViolation;

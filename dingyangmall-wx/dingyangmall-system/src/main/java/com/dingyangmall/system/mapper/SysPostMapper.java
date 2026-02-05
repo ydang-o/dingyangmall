@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.mapper;
+package com.dingyangmall.system.mapper;
 
 import java.util.List;
 import com.dingyangmall.system.domain.SysPost;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.http;
+package com.dingyangmall.common.utils.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;

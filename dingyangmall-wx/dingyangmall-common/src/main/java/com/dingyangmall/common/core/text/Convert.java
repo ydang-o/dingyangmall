@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.text;
+package com.dingyangmall.common.core.text;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

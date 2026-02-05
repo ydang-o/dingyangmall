@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.page;
+package com.dingyangmall.common.core.page;
 
 import java.io.Serializable;
 import java.util.List;

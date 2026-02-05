@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.mall.constant;
+package com.dingyangmall.mall.constant;
 
 /**
  * @author

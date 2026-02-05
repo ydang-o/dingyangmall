@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.ip;
+package com.dingyangmall.common.utils.ip;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

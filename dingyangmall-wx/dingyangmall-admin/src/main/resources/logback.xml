@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!-- 日志存放路径 -->
 	<property name="log.path" value="/home/dingyangmall/logs" />
@@ -9,6 +9,7 @@
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>${log.pattern}</pattern>
+            <charset>GBK</charset>
 		</encoder>
 	</appender>
 	

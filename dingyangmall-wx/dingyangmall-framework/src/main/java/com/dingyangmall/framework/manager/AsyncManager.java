@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.manager;
+package com.dingyangmall.framework.manager;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;

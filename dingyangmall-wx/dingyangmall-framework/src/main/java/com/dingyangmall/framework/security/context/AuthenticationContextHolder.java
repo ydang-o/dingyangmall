@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.security.context;
+package com.dingyangmall.framework.security.context;
 
 import org.springframework.security.core.Authentication;
 

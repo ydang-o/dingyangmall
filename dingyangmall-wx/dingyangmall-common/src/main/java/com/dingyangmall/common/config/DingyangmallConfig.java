@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.config;
+package com.dingyangmall.common.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

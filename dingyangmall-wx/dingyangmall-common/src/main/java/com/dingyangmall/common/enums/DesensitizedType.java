@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.enums;
+package com.dingyangmall.common.enums;
 
 import java.util.function.Function;
 import com.dingyangmall.common.utils.DesensitizedUtil;

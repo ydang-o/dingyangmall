@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.service;
+package com.dingyangmall.generator.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

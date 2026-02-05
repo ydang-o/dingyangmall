@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.domain;
+package com.dingyangmall.generator.domain;
 
 import jakarta.validation.constraints.NotBlank;
 import com.dingyangmall.common.core.domain.BaseEntity;

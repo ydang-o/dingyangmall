@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.config;
+package com.dingyangmall.framework.config;
 
 import java.nio.charset.Charset;
 import org.springframework.data.redis.serializer.RedisSerializer;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils;
+package com.dingyangmall.common.utils;
 
 import com.github.pagehelper.PageHelper;
 import com.dingyangmall.common.core.page.PageDomain;

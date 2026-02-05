@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception.user;
+package com.dingyangmall.common.exception.user;
 
 /**
  * 验证码失效异常类

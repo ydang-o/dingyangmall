@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.exception;
+package com.dingyangmall.common.exception;
 
 /**
  * 工具类异常

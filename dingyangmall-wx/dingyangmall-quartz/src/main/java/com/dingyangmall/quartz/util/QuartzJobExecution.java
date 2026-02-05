@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.util;
+package com.dingyangmall.quartz.util;
 
 import org.quartz.JobExecutionContext;
 import com.dingyangmall.quartz.domain.SysJob;

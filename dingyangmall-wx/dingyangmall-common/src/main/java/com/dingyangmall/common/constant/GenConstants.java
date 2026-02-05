@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.constant;
+package com.dingyangmall.common.constant;
 
 /**
  * 代码生成通用常量

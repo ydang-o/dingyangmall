@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.util;
+package com.dingyangmall.generator.util;
 
 import java.util.Arrays;
 import org.apache.commons.lang3.RegExUtils;

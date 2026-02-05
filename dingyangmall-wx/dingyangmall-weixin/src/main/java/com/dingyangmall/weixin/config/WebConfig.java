@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.weixin.config;
+package com.dingyangmall.weixin.config;
 
 import com.dingyangmall.weixin.interceptor.ThirdSessionInterceptor;
 import lombok.AllArgsConstructor;

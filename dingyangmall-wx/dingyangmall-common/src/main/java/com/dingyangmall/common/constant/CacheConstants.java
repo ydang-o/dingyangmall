@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.constant;
+package com.dingyangmall.common.constant;
 
 /**
  * 缓存的key 常量

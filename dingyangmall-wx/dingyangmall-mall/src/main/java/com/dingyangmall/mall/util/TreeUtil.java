@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.mall.util;
+package com.dingyangmall.mall.util;
 
 import com.dingyangmall.mall.entity.TreeNode;
 import lombok.experimental.UtilityClass;

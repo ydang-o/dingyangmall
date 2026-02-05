@@ -1,4 +1,4 @@
-﻿package com.dingyangmall;
+package com.dingyangmall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,11 +12,13 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class DingyangmallApplication
 {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(DingyangmallApplication.class);
+
     public static void main(String[] args)
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(DingyangmallApplication.class, args);
-        System.out.println("dingyangmall启动成功");
+        log.info("dingyangmall启动成功");
     }
 }
 

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.service;
+package com.dingyangmall.quartz.service;
 
 import java.util.List;
 import com.dingyangmall.quartz.domain.SysJobLog;

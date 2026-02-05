@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.domain;
+package com.dingyangmall.common.core.domain;
 
 import java.util.ArrayList;
 import java.util.List;

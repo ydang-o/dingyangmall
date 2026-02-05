@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.sign;
+package com.dingyangmall.common.utils.sign;
 
 /**
  * Base64工具类

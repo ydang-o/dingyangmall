@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.enums;
+package com.dingyangmall.common.enums;
 
 import java.util.HashMap;
 import java.util.Map;

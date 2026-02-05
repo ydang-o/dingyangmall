@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.constant;
+package com.dingyangmall.common.constant;
 
 /**
  * 任务调度通用常量

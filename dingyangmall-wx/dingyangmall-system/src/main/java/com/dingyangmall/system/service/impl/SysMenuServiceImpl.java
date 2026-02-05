@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.system.service.impl;
+package com.dingyangmall.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,6 +138,14 @@ public class SysMenuServiceImpl implements ISysMenuService
         else
         {
             menus = menuMapper.selectMenuTreeByUserId(userId);
+        }
+        // Filter irrelevant menus (Official Account, Mini Program)
+        if (menus != null)
+        {
+            menus = menus.stream().filter(m -> {
+                String name = m.getMenuName();
+                return name != null && !name.contains("公众号") && !name.contains("小程序");
+            }).collect(Collectors.toList());
         }
         return getChildPerms(menus, 0);
     }

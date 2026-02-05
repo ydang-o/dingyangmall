@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.framework.datasource;
+package com.dingyangmall.framework.datasource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

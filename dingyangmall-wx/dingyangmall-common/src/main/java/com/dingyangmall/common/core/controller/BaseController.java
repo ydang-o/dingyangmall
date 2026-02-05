@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.controller;
+package com.dingyangmall.common.core.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;

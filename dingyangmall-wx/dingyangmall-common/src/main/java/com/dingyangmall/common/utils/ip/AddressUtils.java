@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils.ip;
+package com.dingyangmall.common.utils.ip;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

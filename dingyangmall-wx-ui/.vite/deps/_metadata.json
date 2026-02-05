@@ -1,0 +1,157 @@
+{
+  "hash": "e3c48fee",
+  "configHash": "6554671a",
+  "lockfileHash": "39cd234e",
+  "browserHash": "267fcaf3",
+  "optimized": {
+    "@element-plus/icons-vue": {
+      "src": "../../node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "58a8cb49",
+      "needsInterop": false
+    },
+    "@smallwei/avue": {
+      "src": "../../node_modules/@smallwei/avue/lib/avue.min.js",
+      "file": "@smallwei_avue.js",
+      "fileHash": "61a071b3",
+      "needsInterop": true
+    },
+    "@vueup/vue-quill": {
+      "src": "../../node_modules/@vueup/vue-quill/dist/vue-quill.esm-bundler.js",
+      "file": "@vueup_vue-quill.js",
+      "fileHash": "341d7123",
+      "needsInterop": false
+    },
+    "@vueuse/core": {
+      "src": "../../node_modules/@vueuse/core/index.mjs",
+      "file": "@vueuse_core.js",
+      "fileHash": "c8270e2f",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "6fe5bfb7",
+      "needsInterop": true
+    },
+    "benz-amr-recorder": {
+      "src": "../../node_modules/benz-amr-recorder/BenzAMRRecorder.js",
+      "file": "benz-amr-recorder.js",
+      "fileHash": "2211030b",
+      "needsInterop": true
+    },
+    "echarts": {
+      "src": "../../node_modules/echarts/index.js",
+      "file": "echarts.js",
+      "fileHash": "05e89598",
+      "needsInterop": false
+    },
+    "element-plus": {
+      "src": "../../node_modules/element-plus/es/index.mjs",
+      "file": "element-plus.js",
+      "fileHash": "42df1190",
+      "needsInterop": false
+    },
+    "element-plus/es/locale/lang/zh-cn": {
+      "src": "../../node_modules/element-plus/es/locale/lang/zh-cn.mjs",
+      "file": "element-plus_es_locale_lang_zh-cn.js",
+      "fileHash": "4821e5e6",
+      "needsInterop": false
+    },
+    "file-saver": {
+      "src": "../../node_modules/file-saver/dist/FileSaver.min.js",
+      "file": "file-saver.js",
+      "fileHash": "4f5495a1",
+      "needsInterop": true
+    },
+    "fuse.js": {
+      "src": "../../node_modules/fuse.js/dist/fuse.esm.js",
+      "file": "fuse__js.js",
+      "fileHash": "aa6d7729",
+      "needsInterop": false
+    },
+    "js-cookie": {
+      "src": "../../node_modules/js-cookie/dist/js.cookie.mjs",
+      "file": "js-cookie.js",
+      "fileHash": "3baa2af0",
+      "needsInterop": false
+    },
+    "jsencrypt/bin/jsencrypt.min": {
+      "src": "../../node_modules/jsencrypt/bin/jsencrypt.min.js",
+      "file": "jsencrypt_bin_jsencrypt__min.js",
+      "fileHash": "28fe9767",
+      "needsInterop": true
+    },
+    "nprogress": {
+      "src": "../../node_modules/nprogress/nprogress.js",
+      "file": "nprogress.js",
+      "fileHash": "66a9ab7a",
+      "needsInterop": true
+    },
+    "sockjs-client": {
+      "src": "../../node_modules/sockjs-client/lib/entry.js",
+      "file": "sockjs-client.js",
+      "fileHash": "a093481f",
+      "needsInterop": true
+    },
+    "stompjs": {
+      "src": "../../node_modules/stompjs/index.js",
+      "file": "stompjs.js",
+      "fileHash": "5afae23e",
+      "needsInterop": true
+    },
+    "vue": {
+      "src": "../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "45bf53cb",
+      "needsInterop": false
+    },
+    "vue-cropper": {
+      "src": "../../node_modules/vue-cropper/dist/vue-cropper.es.js",
+      "file": "vue-cropper.js",
+      "fileHash": "125c8dde",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../node_modules/vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "99ba4621",
+      "needsInterop": false
+    },
+    "vue-video-player": {
+      "src": "../../node_modules/vue-video-player/index.js",
+      "file": "vue-video-player.js",
+      "fileHash": "ff65f59b",
+      "needsInterop": false
+    },
+    "pinia": {
+      "src": "../../node_modules/pinia/dist/pinia.mjs",
+      "file": "pinia.js",
+      "fileHash": "d687c7a7",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-AYVSL3LM": {
+      "file": "chunk-AYVSL3LM.js"
+    },
+    "chunk-Y6DIZKBV": {
+      "file": "chunk-Y6DIZKBV.js"
+    },
+    "chunk-UECNAXVA": {
+      "file": "chunk-UECNAXVA.js"
+    },
+    "chunk-EHWNIDRL": {
+      "file": "chunk-EHWNIDRL.js"
+    },
+    "chunk-G6SCE5T5": {
+      "file": "chunk-G6SCE5T5.js"
+    },
+    "chunk-IJVGRPBG": {
+      "file": "chunk-IJVGRPBG.js"
+    },
+    "chunk-V4OQ3NZ2": {
+      "file": "chunk-V4OQ3NZ2.js"
+    }
+  }
+}

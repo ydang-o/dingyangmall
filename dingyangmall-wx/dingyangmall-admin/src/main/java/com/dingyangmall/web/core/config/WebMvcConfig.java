@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.core.config;
+package com.dingyangmall.web.core.config;
 
 import com.dingyangmall.web.core.resolver.SqlFilterArgumentResolver;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.weixin.config;
+package com.dingyangmall.weixin.config;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;

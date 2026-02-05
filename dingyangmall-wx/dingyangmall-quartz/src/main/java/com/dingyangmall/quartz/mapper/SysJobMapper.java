@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.mapper;
+package com.dingyangmall.quartz.mapper;
 
 import java.util.List;
 import com.dingyangmall.quartz.domain.SysJob;

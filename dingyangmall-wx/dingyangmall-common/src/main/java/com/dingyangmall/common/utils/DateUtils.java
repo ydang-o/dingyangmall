@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.utils;
+package com.dingyangmall.common.utils;
 
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;

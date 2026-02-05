@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.generator.service;
+package com.dingyangmall.generator.service;
 
 import java.util.List;
 import com.dingyangmall.generator.domain.GenTableColumn;

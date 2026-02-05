@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.core.resolver;
+package com.dingyangmall.web.core.resolver;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;

@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.domain.entity;
+package com.dingyangmall.common.core.domain.entity;
 
 import java.util.Date;
 import java.util.List;

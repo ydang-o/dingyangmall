@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.quartz.task;
+package com.dingyangmall.quartz.task;
 
 import org.springframework.stereotype.Component;
 import com.dingyangmall.common.utils.StringUtils;

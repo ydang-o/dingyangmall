@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.common.core.domain.model;
+package com.dingyangmall.common.core.domain.model;
 
 /**
  * 用户注册对象

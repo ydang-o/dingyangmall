@@ -1,4 +1,4 @@
-﻿package com.dingyangmall.web.core.config;
+package com.dingyangmall.web.core.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
