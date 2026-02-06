@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dingyangmall.common.core.domain.AjaxResult;
 import com.dingyangmall.mall.entity.UserAddress;
 import com.dingyangmall.mall.service.UserAddressService;
+import com.dingyangmall.mall.utils.MemberUtils;
 import com.dingyangmall.weixin.utils.ThirdSessionHolder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class UserAddressApi {
     */
     @GetMapping("/page")
     public AjaxResult getUserAddressPage(Page page, UserAddress userAddress) {
-		userAddress.setUserId(ThirdSessionHolder.getWxUserId());
+		userAddress.setUserId(MemberUtils.getMemberId());
         return AjaxResult.success(userAddressService.page(page,Wrappers.query(userAddress)));
     }
 

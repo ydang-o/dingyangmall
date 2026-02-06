@@ -16,8 +16,8 @@ import com.dingyangmall.mall.entity.OrderItem;
 import com.dingyangmall.mall.entity.OrderLogistics;
 import com.dingyangmall.mall.service.OrderInfoService;
 import com.dingyangmall.mall.service.OrderLogisticsService;
-import com.dingyangmall.weixin.constant.MyReturnCode;
-import com.dingyangmall.weixin.service.WxUserService;
+import com.dingyangmall.mall.service.UmsMemberService;
+import com.dingyangmall.mall.constant.MallReturnCode;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,7 +37,7 @@ public class OrderInfoController extends BaseController {
 
     private final OrderInfoService orderInfoService;
 	private final OrderLogisticsService orderLogisticsService;
-	private final WxUserService wxUserService;
+	private final UmsMemberService umsMemberService;
 
     /**
     * 分页查询
@@ -72,7 +72,7 @@ public class OrderInfoController extends BaseController {
 		OrderInfo orderInfo = orderInfoService.getById(id);
 		OrderLogistics orderLogistics = orderLogisticsService.getById(orderInfo.getLogisticsId());
 		orderInfo.setOrderLogistics(orderLogistics);
-		orderInfo.setUserInfo(wxUserService.getById(orderInfo.getUserId()));
+		orderInfo.setUserInfo(umsMemberService.getById(orderInfo.getUserId()));
         return AjaxResult.success(orderInfo);
     }
 
@@ -119,10 +119,10 @@ public class OrderInfoController extends BaseController {
 	public AjaxResult orderCancel(@PathVariable String id){
 		OrderInfo orderInfo = orderInfoService.getById(id);
 		if(orderInfo == null){
-			return AjaxResult.error(MyReturnCode.ERR_70005.getCode(), MyReturnCode.ERR_70005.getMsg());
+			return AjaxResult.error(MallReturnCode.ERR_70005.getCode(), MallReturnCode.ERR_70005.getMsg());
 		}
 		if(!CommonConstants.NO.equals(orderInfo.getIsPay())){//只有未支付订单能取消
-			return AjaxResult.error(MyReturnCode.ERR_70001.getCode(), MyReturnCode.ERR_70001.getMsg());
+			return AjaxResult.error(MallReturnCode.ERR_70001.getCode(), MallReturnCode.ERR_70001.getMsg());
 		}
 		orderInfoService.orderCancel(orderInfo);
 		return AjaxResult.success();

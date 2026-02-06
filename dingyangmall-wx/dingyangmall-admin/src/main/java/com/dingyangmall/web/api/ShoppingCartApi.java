@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dingyangmall.common.core.domain.AjaxResult;
 import com.dingyangmall.mall.entity.ShoppingCart;
 import com.dingyangmall.mall.service.ShoppingCartService;
-import com.dingyangmall.weixin.utils.ThirdSessionHolder;
+import com.dingyangmall.mall.utils.MemberUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +40,7 @@ public class ShoppingCartApi {
 	 */
     @GetMapping("/page")
     public AjaxResult getShoppingCartPage(Page page, ShoppingCart shoppingCart) {
-		shoppingCart.setUserId(ThirdSessionHolder.getWxUserId());
+		shoppingCart.setUserId(MemberUtils.getMemberId());
 		return AjaxResult.success(shoppingCartService.page2(page, shoppingCart));
     }
 
@@ -51,7 +51,7 @@ public class ShoppingCartApi {
 	 */
 	@GetMapping("/count")
 	public AjaxResult getShoppingCartCount(ShoppingCart shoppingCart) {
-		shoppingCart.setUserId(ThirdSessionHolder.getWxUserId());
+		shoppingCart.setUserId(MemberUtils.getMemberId());
 		return AjaxResult.success(shoppingCartService.count(Wrappers.query(shoppingCart)));
 	}
 
@@ -62,7 +62,7 @@ public class ShoppingCartApi {
 	 */
 	@PostMapping
 	public AjaxResult save(@RequestBody ShoppingCart shoppingCart){
-		shoppingCart.setUserId(ThirdSessionHolder.getWxUserId());
+		shoppingCart.setUserId(MemberUtils.getMemberId());
 		return AjaxResult.success(shoppingCartService.save(shoppingCart));
 	}
 
@@ -73,7 +73,7 @@ public class ShoppingCartApi {
 	 */
 	@PutMapping
 	public AjaxResult edit(@RequestBody ShoppingCart shoppingCart){
-		shoppingCart.setUserId(ThirdSessionHolder.getWxUserId());
+		shoppingCart.setUserId(MemberUtils.getMemberId());
 		return AjaxResult.success(shoppingCartService.updateById(shoppingCart));
 	}
 

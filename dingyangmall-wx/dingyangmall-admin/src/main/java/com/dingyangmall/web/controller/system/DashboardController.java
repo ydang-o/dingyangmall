@@ -7,7 +7,7 @@ import com.dingyangmall.mall.entity.OrderInfo;
 import com.dingyangmall.mall.mapper.TbIntegralFlowMapper;
 import com.dingyangmall.mall.service.OrderInfoService;
 import com.dingyangmall.system.service.ISysUserService;
-import com.dingyangmall.weixin.service.WxUserService;
+import com.dingyangmall.mall.service.UmsMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,7 @@ import java.util.Map;
 public class DashboardController {
 
     private final ISysUserService sysUserService;
-    private final WxUserService wxUserService;
+    private final UmsMemberService umsMemberService;
     private final OrderInfoService orderInfoService;
     private final TbIntegralFlowMapper integralFlowMapper;
 
@@ -42,11 +42,11 @@ public class DashboardController {
     public AjaxResult getDashboardData() {
         Map<String, Object> data = new HashMap<>();
 
-        // 1. 用户总数 (系统用户 + 微信用户)
-        // 注意：SysUser包含管理员和经销商，WxUser包含终端客户
+        // 1. 用户总数 (系统用户 + 会员用户)
+        // 注意：SysUser包含管理员和经销商，UmsMember包含终端客户
         // 这里简单相加，实际业务可能需要去重或区分
         long sysUserCount = sysUserService.selectUserList(null).size(); // 这是一个简化的写法，实际应该用count
-        long wxUserCount = wxUserService.count();
+        long wxUserCount = umsMemberService.count();
         data.put("userCount", sysUserCount + wxUserCount);
 
         // 2. 平台积分发放总量 (operType = 1)

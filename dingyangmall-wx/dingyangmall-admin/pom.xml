@@ -42,23 +42,10 @@
             <artifactId>dingyangmall-framework</artifactId>
         </dependency>
 
-        <!-- 定时任务-->
-        <dependency>
-            <groupId>com.dingyangmall</groupId>
-            <artifactId>dingyangmall-quartz</artifactId>
-        </dependency>
+        <!-- 定时任务 (已移除) -->
+        <!-- 代码生成 (已移除) -->
 
-        <!-- 代码生成-->
-        <dependency>
-            <groupId>com.dingyangmall</groupId>
-            <artifactId>dingyangmall-generator</artifactId>
-        </dependency>
-
-        <!-- 微信模块-->
-        <dependency>
-            <groupId>com.dingyangmall</groupId>
-            <artifactId>dingyangmall-weixin</artifactId>
-        </dependency>
+        <!-- 微信模块 (已移除) -->
         <!-- 商城模块-->
         <dependency>
             <groupId>com.dingyangmall</groupId>

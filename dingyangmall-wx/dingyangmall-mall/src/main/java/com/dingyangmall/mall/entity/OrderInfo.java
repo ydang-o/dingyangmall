@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.dingyangmall.common.annotation.Excel;
 import com.dingyangmall.mall.config.CommonConstants;
 import com.dingyangmall.mall.enums.OrderInfoEnum;
-import com.dingyangmall.weixin.entity.WxUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -178,10 +177,11 @@ public class OrderInfo extends Model<OrderInfo> {
 	 * 用户信息
 	 */
 	@TableField(exist = false)
-	private WxUser userInfo;
+	private UmsMember userInfo;
 	/**
 	 * 物流单号
 	 */
+	@Excel(name = "物流单号")
 	@TableField(exist = false)
 	private String logisticsNo;
 	public String getStatusDesc() {
