@@ -60,6 +60,12 @@ public class SysUserController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(SysUser user)
     {
+        if (isDealerLevelOne())
+        {
+            user.setDealerLevel(2);
+            user.setParentDistributorId(getUserId());
+            user.setDeptId(getLoginUser().getUser().getDeptId());
+        }
         startPage();
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);
@@ -126,6 +132,28 @@ public class SysUserController extends BaseController
     {
         deptService.checkDeptDataScope(user.getDeptId());
         roleService.checkRoleDataScope(user.getRoleIds());
+        if (isDealerLevelOne())
+        {
+            user.setDealerLevel(2);
+            user.setParentDistributorId(getUserId());
+            user.setDeptId(getLoginUser().getUser().getDeptId());
+        }
+        if (user.getDealerLevel() != null && user.getDealerLevel() == 1)
+        {
+            user.setParentDistributorId(null);
+        }
+        if (user.getDealerLevel() != null && user.getDealerLevel() == 2)
+        {
+            if (user.getParentDistributorId() == null)
+            {
+                return error("二级分销商必须设置上级分销商");
+            }
+            SysUser parent = userService.selectUserById(user.getParentDistributorId());
+            if (parent == null || parent.getDealerLevel() == null || parent.getDealerLevel() != 1)
+            {
+                return error("上级分销商必须为一级分销商");
+            }
+        }
         if (!userService.checkUserNameUnique(user))
         {
             return error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
@@ -155,6 +183,33 @@ public class SysUserController extends BaseController
         userService.checkUserDataScope(user.getUserId());
         deptService.checkDeptDataScope(user.getDeptId());
         roleService.checkRoleDataScope(user.getRoleIds());
+        if (isDealerLevelOne())
+        {
+            SysUser target = userService.selectUserById(user.getUserId());
+            if (target == null || target.getParentDistributorId() == null || !target.getParentDistributorId().equals(getUserId()))
+            {
+                return error("没有权限修改该分销商");
+            }
+            user.setDealerLevel(2);
+            user.setParentDistributorId(getUserId());
+            user.setDeptId(getLoginUser().getUser().getDeptId());
+        }
+        if (user.getDealerLevel() != null && user.getDealerLevel() == 1)
+        {
+            user.setParentDistributorId(null);
+        }
+        if (user.getDealerLevel() != null && user.getDealerLevel() == 2)
+        {
+            if (user.getParentDistributorId() == null)
+            {
+                return error("二级分销商必须设置上级分销商");
+            }
+            SysUser parent = userService.selectUserById(user.getParentDistributorId());
+            if (parent == null || parent.getDealerLevel() == null || parent.getDealerLevel() != 1)
+            {
+                return error("上级分销商必须为一级分销商");
+            }
+        }
         if (!userService.checkUserNameUnique(user))
         {
             return error("修改用户'" + user.getUserName() + "'失败，登录账号已存在");
@@ -184,6 +239,12 @@ public class SysUserController extends BaseController
             return error("当前用户不能删除");
         }
         return toAjax(userService.deleteUserByIds(userIds));
+    }
+
+    private boolean isDealerLevelOne()
+    {
+        SysUser current = getLoginUser().getUser();
+        return current != null && current.getDealerLevel() != null && current.getDealerLevel() == 1;
     }
 
     /**

@@ -88,6 +88,10 @@ public class SysUser extends BaseEntity
 
     /** 角色ID */
     private Long roleId;
+    
+    private Integer dealerLevel;
+
+    private Long parentDistributorId;
 
     public SysUser()
     {
@@ -297,6 +301,26 @@ public class SysUser extends BaseEntity
         this.roleId = roleId;
     }
 
+    public Integer getDealerLevel()
+    {
+        return dealerLevel;
+    }
+
+    public void setDealerLevel(Integer dealerLevel)
+    {
+        this.dealerLevel = dealerLevel;
+    }
+
+    public Long getParentDistributorId()
+    {
+        return parentDistributorId;
+    }
+
+    public void setParentDistributorId(Long parentDistributorId)
+    {
+        this.parentDistributorId = parentDistributorId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -318,6 +342,8 @@ public class SysUser extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
+            .append("dealerLevel", getDealerLevel())
+            .append("parentDistributorId", getParentDistributorId())
             .append("dept", getDept())
             .toString();
     }

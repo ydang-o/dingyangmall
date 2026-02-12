@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.08 (64 bit)
 MySQL - 8.0.19 : Database - dingyangmall_ry
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -767,6 +768,8 @@ CREATE TABLE `sys_user` (
   `user_name` varchar(30) NOT NULL COMMENT '用户账号',
   `nick_name` varchar(30) NOT NULL COMMENT '用户昵称',
   `user_type` varchar(2) DEFAULT '00' COMMENT '用户类型（00系统用户）',
+  `dealer_level` tinyint DEFAULT NULL COMMENT '经销商等级',
+  `parent_distributor_id` bigint DEFAULT NULL COMMENT '上级经销商ID',
   `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
   `phonenumber` varchar(11) DEFAULT '' COMMENT '手机号码',
   `sex` char(1) DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',

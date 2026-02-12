@@ -38,22 +38,49 @@ export default {
   computed: {
     permissionList() {
       return {
-        addBtn: this.hasPermi(['mall:member:add']),
-        viewBtn: this.hasPermi(['mall:member:get']),
-        delBtn: this.hasPermi(['mall:member:del']),
-        editBtn: this.hasPermi(['mall:member:edit'])
+        addBtn: this.$auth.hasPermi(['mall:member:add']),
+        viewBtn: this.$auth.hasPermi(['mall:member:get']),
+        delBtn: this.$auth.hasPermi(['mall:member:del']),
+        editBtn: this.$auth.hasPermi(['mall:member:edit'])
       }
     }
   },
   methods: {
+    normalizeAvatar(avatar) {
+      if (Array.isArray(avatar)) {
+        if (!avatar.length) {
+          return undefined
+        }
+        const first = avatar[0]
+        if (typeof first === 'string') {
+          return first
+        }
+        if (first && typeof first.url === 'string') {
+          return first.url
+        }
+        if (first && typeof first.value === 'string') {
+          return first.value
+        }
+        return undefined
+      }
+      if (avatar && typeof avatar === 'object') {
+        if (typeof avatar.url === 'string') {
+          return avatar.url
+        }
+        if (typeof avatar.value === 'string') {
+          return avatar.value
+        }
+      }
+      return avatar
+    },
     getList(page, params) {
       this.tableLoading = true
       getPage(Object.assign({
         current: page.currentPage,
         size: page.pageSize
       }, params, this.searchForm)).then(response => {
-        this.tableData = response.data.data.records
-        this.page.total = response.data.data.total
+        this.tableData = response.data.records
+        this.page.total = response.data.total
         this.tableLoading = false
       }).catch(() => {
         this.tableLoading = false
@@ -77,7 +104,11 @@ export default {
       })
     },
     rowUpdate: function(row, index, done, loading) {
-      putObj(row).then(data => {
+      const payload = {
+        ...row,
+        avatar: this.normalizeAvatar(row.avatar)
+      }
+      putObj(payload).then(data => {
         this.$message({
           showClose: true,
           message: '修改成功',
@@ -90,7 +121,11 @@ export default {
       })
     },
     rowSave: function(row, done, loading) {
-      addObj(row).then(data => {
+      const payload = {
+        ...row,
+        avatar: this.normalizeAvatar(row.avatar)
+      }
+      addObj(payload).then(data => {
         this.$message({
           showClose: true,
           message: '添加成功',

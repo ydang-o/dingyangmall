@@ -38,10 +38,10 @@ export default {
   computed: {
     permissionList() {
       return {
-        addBtn: this.hasPermi(['mall:member:add']),
-        viewBtn: this.hasPermi(['mall:member:get']),
-        delBtn: this.hasPermi(['mall:member:del']),
-        editBtn: this.hasPermi(['mall:member:edit'])
+        addBtn: this.$auth.hasPermi(['mall:member:add']),
+        viewBtn: this.$auth.hasPermi(['mall:member:get']),
+        delBtn: this.$auth.hasPermi(['mall:member:del']),
+        editBtn: this.$auth.hasPermi(['mall:member:edit'])
       }
     }
   },
@@ -52,8 +52,8 @@ export default {
         current: page.currentPage,
         size: page.pageSize
       }, params, this.searchForm)).then(response => {
-        this.tableData = response.data.data.records
-        this.page.total = response.data.data.total
+        this.tableData = response.data.records
+        this.page.total = response.data.total
         this.tableLoading = false
       }).catch(() => {
         this.tableLoading = false

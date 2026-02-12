@@ -10,6 +10,7 @@ const useUserStore = defineStore(
       id: '',
       name: '',
       avatar: '',
+      dealerLevel: null,
       roles: [],
       permissions: []
     }),
@@ -46,6 +47,7 @@ const useUserStore = defineStore(
             this.id = user.userId
             this.name = user.userName
             this.avatar = avatar
+            this.dealerLevel = user.dealerLevel
             resolve(res)
           }).catch(error => {
             reject(error)
