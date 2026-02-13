@@ -1,0 +1,22 @@
+CREATE TABLE `tb_coupon_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键-券ID',
+  `coupon_code` varchar(32) DEFAULT NULL COMMENT '商品券码-10位大写',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '持有用户ID-终端客户',
+  `goods_id` varchar(32) DEFAULT NULL COMMENT '关联商品ID',
+  `goods_name` varchar(255) DEFAULT NULL COMMENT '商品名称-冗余',
+  `goods_pic` varchar(500) DEFAULT NULL COMMENT '商品图片-冗余',
+  `integral_price` int(11) DEFAULT NULL COMMENT '兑换积分价格-冗余',
+  `validity_start` datetime DEFAULT NULL COMMENT '券有效期开始时间',
+  `validity_end` datetime DEFAULT NULL COMMENT '券有效期结束时间',
+  `coupon_status` int(2) DEFAULT '1' COMMENT '券状态：1-未使用 2-已使用 3-已过期',
+  `verify_time` datetime DEFAULT NULL COMMENT '核销时间',
+  `verify_dealer_id` bigint(20) DEFAULT NULL COMMENT '核销经销商ID-核销后填充',
+  `verify_dealer_name` varchar(100) DEFAULT NULL COMMENT '核销经销商名称-冗余',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_by` varchar(64) DEFAULT NULL COMMENT '创建人-用户ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_coupon_code` (`coupon_code`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_status` (`coupon_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品券信息';

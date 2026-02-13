@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (C) 2018-2019
  * All rights reserved, Designed By www.dingyangmall.com
  * 注意：
@@ -84,13 +84,89 @@ const request = (url, method, data, showLoading) => {
   })
 }
 
+const merchantRequest = (url, method, data, showLoading) => {
+  let _url = __config.basePath + url
+  return new Promise((resolve, reject) => {
+    if (showLoading){
+      wx.showLoading({
+        title: '加载中',
+      })
+    }
+    let token = wx.getStorageSync('merchantToken')
+    wx.request({
+      url: _url,
+      method: method,
+      data: data,
+      header: {
+        'Authorization': token ? 'Bearer ' + token : ''
+      },
+      success(res) {
+        if (res.statusCode == 200) {
+          if (res.data.code != 200) {
+            wx.showModal({
+              title: '提示',
+              content: res.data.msg ? res.data.msg : '操作失败',
+              showCancel: false
+            })
+            reject(res.data.msg)
+          } else {
+            resolve(res.data)
+          }
+        } else if (res.statusCode == 401) {
+          wx.showToast({ title: '登录已过期', icon: 'none' })
+          wx.removeStorageSync('merchantToken')
+          wx.redirectTo({ url: '/pages/merchant/login/index' })
+          reject('Unauthorized')
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '系统错误',
+            showCancel: false
+          })
+          reject()
+        }
+      },
+      fail(error) {
+        wx.showModal({
+          title: '提示',
+          content: '网络请求失败',
+          showCancel: false
+        })
+        reject(error)
+      },
+      complete(res) {
+        wx.hideLoading()
+      }
+    })
+  })
+}
+
 module.exports = {
   request,
+  merchantRequest,
   login: (data) => {//小程序登录接口
     return request('/weixin/api/ma/wxuser/login', 'post', data, false)
   },
   wxUserGet: (data) => {//微信用户查询
-    return request('/weixin/api/ma/wxuser', 'get', null, false)
+    return request('/app/member/info', 'get', null, false)
+  },
+  memberInfo: () => {//会员信息查询
+    return request('/app/member/info', 'get', null, false)
+  },
+  couponMy: (status) => {//我的优惠券
+    return request('/app/coupon/my', 'get', {status: status}, false)
+  },
+  lotteryConfig: () => {//抽奖配置
+    return request('/app/lottery/config', 'get', null, false)
+  },
+  lotteryDraw: () => {//抽奖
+    return request('/app/lottery/draw', 'post', null, true)
+  },
+  lotteryRecord: (data) => {//抽奖记录
+    return request('/app/lottery/record', 'get', data, false)
+  },
+  memberSignIn: () => {//每日签到
+    return request('/app/member/sign-in', 'post', null, true)
   },
   wxUserSave: (data) => {//微信用户新增
     return request('/weixin/api/ma/wxuser', 'post', data, true)
@@ -122,6 +198,28 @@ module.exports = {
   orderSub: (data) => {//订单提交
     return request('/weixin/api/ma/orderinfo', 'post', data, true)
   },
+  // 商家端API
+  getCaptcha: () => {
+    return request('/captchaImage', 'get', null, false)
+  },
+  merchantLogin: (data) => {
+    return request('/login', 'post', data, true)
+  },
+  merchantScanUser: (code) => {
+    return merchantRequest('/api/mall/merchant/scan/user/' + code, 'get', null, false)
+  },
+  merchantGivePoints: (data) => {
+    return merchantRequest('/api/mall/merchant/scan/points', 'post', data, true)
+  },
+  merchantVerifyCoupon: (data) => {
+    return merchantRequest('/api/mall/merchant/scan/coupon/verify', 'post', data, true)
+  },
+  sendPacket: (data) => {//发送积分红包
+    return request('/app/member/send-packet', 'post', data, true)
+  },
+  sendSmsCode: (phone) => {//发送短信验证码
+    return request('/app/member/send-sms-code', 'get', { phone: phone }, true)
+  },
   orderPage: (data) => {//订单列表
     return request('/weixin/api/ma/orderinfo/page', 'get', data, false)
   },
@@ -136,6 +234,9 @@ module.exports = {
   },
   orderReceive: (id) => {//订单确认收货
     return request('/weixin/api/ma/orderinfo/receive/' + id, 'put', null, true)
+  },
+  orderLogistics: (id) => {//订单物流信息
+    return request('/weixin/api/ma/orderinfo/logistics/' + id, 'get', null, false)
   },
   orderDel: (id) => {//订单删除
     return request('/weixin/api/ma/orderinfo/' + id, 'delete', null, false)
@@ -154,5 +255,28 @@ module.exports = {
   },
   userAddressDel: (id) => {//用户收货地址删除
     return request('/weixin/api/ma/useraddress/' + id, 'delete', null, false)
+  },
+  sendPacket: (data) => {//发送积分红包
+    return request('/app/member/send-packet', 'post', data, true)
+  },
+  sendSmsCode: (phone) => {//发送验证码
+    return request('/app/member/send-sms-code?phone=' + phone, 'get', null, false)
+  },
+  // 商家端接口
+  merchantLogin: (data) => {
+    return request('/login', 'post', data, true) // Login uses standard request but path is /login, wait, request uses basePath. basePath is localhost:8080/weixin/api/ma? No, basePath is http://localhost:8080.
+    // Let's check env.js for basePath.
+  },
+  getCaptcha: () => {
+    return request('/captchaImage', 'get', null, false)
+  },
+  merchantScanUser: (code) => {
+    return merchantRequest('/api/mall/merchant/scan/user/' + code, 'get', null, true)
+  },
+  merchantGivePoints: (data) => {
+    return merchantRequest('/api/mall/merchant/scan/points', 'post', data, true)
+  },
+  merchantVerifyCoupon: (data) => {
+    return merchantRequest('/api/mall/merchant/scan/coupon/verify', 'post', data, true)
   }
 }

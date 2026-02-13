@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (C) 2018-2019
  * All rights reserved, Designed By www.dingyangmall.com
  * 注意：
@@ -48,6 +48,11 @@ Component({
               })
           }
         }
+      })
+    },
+    orderLogistics() {
+      wx.navigateTo({
+        url: '/pages/order/order-logistics/index?id=' + this.data.orderInfo.id
       })
     },
     orderCancel() {

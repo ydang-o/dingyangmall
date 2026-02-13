@@ -59,6 +59,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 	private final OrderItemService orderItemService;
 	private final OrderLogisticsService orderLogisticsService;
 	private final MallConfigProperties mallConfigProperties;
+    private final TbCouponInfoService couponInfoService;
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -76,6 +77,8 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 			orderLogistics.setLogisticsNo(entity.getLogisticsNo());
 			orderLogistics.setStatus(OrderLogisticsEnum.STATUS_1.getValue());
 			orderLogisticsService.updateById(orderLogistics);
+            // 自动更新订单状态为待收货
+            entity.setStatus(OrderInfoEnum.STATUS_2.getValue());
 			if(sendRedis){
 				//加入redis，7天后自动确认收货
 				String keyRedis = String.valueOf(StrUtil.format("{}:{}",MallConstants.REDIS_ORDER_KEY_STATUS_2,entity.getId()));
@@ -236,6 +239,31 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 					//更新销量
 					goodsSpu.setSaleNum(goodsSpu.getSaleNum()+orderItem.getQuantity());
 				});
+				// 如果是商品券类型(2)，生成对应的优惠券
+				if ("2".equals(goodsSpu.getGoodsType())) {
+					resultList.get(goodsSpu.getId()).forEach(orderItem -> {
+						for (int i = 0; i < orderItem.getQuantity(); i++) {
+							TbCouponInfo coupon = new TbCouponInfo();
+							try {
+								coupon.setUserId(Long.parseLong(orderInfo.getUserId()));
+							} catch (NumberFormatException e) {
+								log.error("Failed to parse userId: {}", orderInfo.getUserId());
+								continue;
+							}
+							// 生成10位大写核销码
+							coupon.setCouponCode(IdUtil.simpleUUID().substring(0, 10).toUpperCase());
+							coupon.setGoodsId(goodsSpu.getId());
+							coupon.setGoodsName(goodsSpu.getName());
+							coupon.setGoodsPic(goodsSpu.getPicUrls() != null && goodsSpu.getPicUrls().length > 0 ? goodsSpu.getPicUrls()[0] : "");
+							coupon.setCouponStatus(1); // 1:未使用
+							coupon.setValidityStart(LocalDateTime.now());
+							coupon.setValidityEnd(LocalDateTime.now().plusYears(1)); // 默认1年有效期
+							coupon.setCreateTime(LocalDateTime.now());
+							coupon.setUpdateTime(LocalDateTime.now());
+							couponInfoService.save(coupon);
+						}
+					});
+				}
 				goodsSpuService.updateById(goodsSpu);
 				baseMapper.updateById(orderInfo);//更新订单
 			});

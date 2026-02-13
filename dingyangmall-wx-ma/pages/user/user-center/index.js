@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (C) 2018-2019
  * All rights reserved, Designed By www.dingyangmall.com
  * 注意：
@@ -90,6 +90,16 @@ Page({
         this.setData({
           orderCountAll: res.data
         })
+      })
+  },
+  signIn() {
+    app.api.memberSignIn()
+      .then(res => {
+        wx.showToast({
+          title: res.msg,
+          icon: 'success'
+        })
+        this.wxUserGet() // 刷新积分
       })
   }
 })

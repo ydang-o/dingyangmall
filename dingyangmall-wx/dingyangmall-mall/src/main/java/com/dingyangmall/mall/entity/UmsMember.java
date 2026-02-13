@@ -22,7 +22,7 @@ public class UmsMember extends Model<UmsMember> {
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.ASSIGN_ID)
-    private String id;
+    private Long id;
 
     @Excel(name = "昵称")
     private String nickname;
@@ -50,6 +50,9 @@ public class UmsMember extends Model<UmsMember> {
 
     @Excel(name = "头像")
     private String avatar;
+
+    @Excel(name = "密码")
+    private String password;
 
     @Excel(name = "创建时间")
     private LocalDateTime createTime;

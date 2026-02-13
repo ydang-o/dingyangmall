@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   - Copyright (C) 2018-2019
   - All rights reserved, Designed By www.dingyangmall.com
   - 注意：
@@ -16,6 +16,10 @@
     <button class="cu-btn round sm margin-top-xs" bindtap="getUserProfile">
       {{!wxUser.nickName ? '获取昵称' : '更新昵称'}}
     </button>
+    <view class="margin-top-xs text-sm" wx:if="{{userInfo.memberCode}}">
+      <view>会员码：{{userInfo.memberCode}}</view>
+      <view>积分：{{userInfo.points || 0}}</view>
+    </view>
   </view>
 </view>
 <view class="cu-listradius order-list">
@@ -55,6 +59,36 @@
   </view>
 </view>
 <view class="cu-list menu card-menu radius address">
+  <navigator class="cu-item arrow" url="/pages/coupon/my-coupons/index" hover-class="none">
+    <view class="content">
+      <image class="address-image" src="/public/img/5-4.png"></image>
+      <text class="text-black">我的优惠券</text>
+    </view>
+  </navigator>
+  <view class="cu-item arrow" bindtap="signIn">
+    <view class="content">
+      <image class="address-image" src="/public/img/5-1.png"></image>
+      <text class="text-black">每日签到</text>
+    </view>
+  </view>
+  <navigator class="cu-item arrow" url="/pages/lottery/index/index" hover-class="none">
+    <view class="content">
+      <image class="address-image" src="/public/img/5-2.png"></image>
+      <text class="text-black">积分抽奖</text>
+    </view>
+  </navigator>
+  <navigator class="cu-item arrow" url="/pages/integral/packet/index" hover-class="none">
+    <view class="content">
+      <image class="address-image" src="/public/img/5-3.png"></image>
+      <text class="text-black">积分红包</text>
+    </view>
+  </navigator>
+  <navigator class="cu-item arrow" url="/pages/merchant/login/index" hover-class="none">
+    <view class="content">
+      <image class="address-image" src="/public/img/5-4.png"></image>
+      <text class="text-black">商家入口</text>
+    </view>
+  </navigator>
   <navigator class="cu-item arrow" url="/pages/user/user-address/list/index" hover-class="none">
     <view class="content">
       <image class="address-image" src="/public/img/7-1.png"></image>

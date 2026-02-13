@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   - Copyright (C) 2018-2019
   - All rights reserved, Designed By www.dingyangmall.com
   - 注意：
@@ -48,7 +48,7 @@
         class="response"
         orderInfo="{{item}}"
         bind:orderCancel="orderCancel"
-        bind:orderReceive="orderCancel"
+        bind:orderReceive="orderReceive"
         bind:orderDel="orderDel"
         bind:unifiedOrder="unifiedOrder"
         data-index="{{index}}"/>

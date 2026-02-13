@@ -107,6 +107,17 @@ private static final long serialVersionUID = 1L;
 	@Excel(name = "销量")
 	private Integer saleNum;
     /**
+     * 商品类型（0：普通商品；1：虚拟商品；2：商品券）
+     */
+    @Excel(name = "商品类型（0：普通商品；1：虚拟商品；2：商品券）")
+    private String goodsType;
+
+    /**
+     * 积分价格（兑换所需积分）
+     */
+    @Excel(name = "积分价格")
+    private Integer integralPrice;
+    /**
    * 创建时间
    */
 	@Excel(name = "创建时间")

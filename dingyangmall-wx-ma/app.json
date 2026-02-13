@@ -11,7 +11,13 @@
     "pages/order/order-detail/index",
     "pages/user/user-center/index",
     "pages/user/user-address/list/index",
-    "pages/user/user-address/form/index"
+    "pages/user/user-address/form/index",
+    "pages/merchant/login/index",
+    "pages/merchant/index/index",
+    "pages/integral/packet/index",
+    "pages/coupon/my-coupons/index",
+    "pages/lottery/index/index",
+    "pages/order/order-logistics/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",
