@@ -311,28 +311,7 @@ public class OrderInfoApi {
 		}
 	}
 
-    /**
-     * 确认收货
-     * @param id
-     * @return
-     */
-    @PutMapping("/receive/{id}")
-    public AjaxResult receive(@PathVariable("id") String id){
-        OrderInfo orderInfo = orderInfoService.getById(id);
-        if(orderInfo == null){
-            return AjaxResult.error("订单不存在");
-        }
-        if(!orderInfo.getUserId().equals(ThirdSessionHolder.getWxUserId())){
-             return AjaxResult.error("无权操作");
-        }
-        if(!OrderInfoEnum.STATUS_2.getValue().equals(orderInfo.getStatus())){
-            return AjaxResult.error("订单状态异常");
-        }
-        orderInfo.setStatus(OrderInfoEnum.STATUS_3.getValue());
-        orderInfo.setReceiverTime(LocalDateTime.now());
-        orderInfoService.updateById(orderInfo);
-        return AjaxResult.success(orderInfo);
-    }
+
 
     /**
      * 获取物流信息

@@ -18,7 +18,7 @@ public class DingyangmallApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(DingyangmallApplication.class, args);
-        log.info("定阳商城启动成功");
+        log.info("如囍优选启动成功");
     }
 }
 

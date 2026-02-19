@@ -3,6 +3,7 @@
     <view class="text-center margin-bottom-lg">
       <view class="text-xxl text-bold text-red">积分红包</view>
       <view class="text-gray margin-top-sm">赠送积分给好友</view>
+      <view class="margin-top-sm text-lg">当前可用积分：<text class="text-orange text-bold">{{userInfo.points || 0}}</text></view>
     </view>
     
     <form>

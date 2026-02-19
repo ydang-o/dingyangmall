@@ -12,6 +12,39 @@
         <view class="margin-top-sm">扫核销码</view>
         <view class="text-gray text-xs margin-top-xs">核销商品券</view>
       </view>
+      <view class="padding" bindtap="showInputUser">
+        <view class="cuIcon-edit text-blue text-sl"></view>
+        <view class="margin-top-sm">手动输码</view>
+        <view class="text-gray text-xs margin-top-xs">输入会员码</view>
+      </view>
+      <view class="padding" bindtap="showInputCoupon">
+        <view class="cuIcon-write text-orange text-sl"></view>
+        <view class="margin-top-sm">手动核销</view>
+        <view class="text-gray text-xs margin-top-xs">输入券码</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 手动输入弹窗 -->
+  <view class="cu-modal {{showInputModal ? 'show' : ''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">{{inputType == 'user' ? '输入会员码/手机号' : '输入券码'}}</view>
+        <view class="action" bindtap="hideInputModal">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        <view class="cu-form-group border">
+          <input placeholder="{{inputType == 'user' ? '请输入会员码或手机号' : '请输入商品券码'}}" bindinput="onManualInput" value="{{manualCode}}"></input>
+        </view>
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideInputModal">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="confirmManualInput">确认</button>
+        </view>
+      </view>
     </view>
   </view>
 

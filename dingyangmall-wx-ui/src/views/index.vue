@@ -1,12 +1,12 @@
-﻿<template>
+<template>
   <div class="app-container home">
     <!-- 标题区域 -->
     <el-row :gutter="20" class="mb-20">
       <el-col :span="24">
         <el-card>
           <div class="header-section">
-            <h2>定阳商城 - 管理端</h2>
-            <p>欢迎使用定阳商城。本系统围绕“厂商 → 一级经销商 → 二级经销商 → 终端客户”的积分流转链路，实现积分分发、商品兑换、商品券核销等核心业务。</p>
+            <h2>如囍优选 - 管理端</h2>
+            <p>欢迎使用如囍优选。本系统围绕“厂商 → 一级经销商 → 二级经销商 → 终端客户”的积分流转链路，实现积分分发、商品兑换、商品券核销等核心业务。</p>
           </div>
         </el-card>
       </el-col>

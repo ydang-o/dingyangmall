@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dingyangmall.common.core.controller.BaseController;
 import com.dingyangmall.common.core.domain.AjaxResult;
 import com.dingyangmall.common.core.page.TableDataInfo;
+import com.dingyangmall.common.constant.HttpStatus;
 import com.dingyangmall.mall.entity.TbCouponInfo;
 import com.dingyangmall.mall.service.TbCouponInfoService;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,13 @@ public class TbCouponInfoController extends BaseController {
     @GetMapping("/page")
     @PreAuthorize("@ss.hasPermi('mall:coupon:index')")
     public TableDataInfo getPage(Page page, TbCouponInfo tbCouponInfo) {
-        return getDataTable(couponInfoService.page(page, Wrappers.query(tbCouponInfo).lambda().orderByDesc(TbCouponInfo::getCreateTime)));
+        com.baomidou.mybatisplus.core.metadata.IPage<TbCouponInfo> result = couponInfoService.page(page, Wrappers.query(tbCouponInfo).lambda().orderByDesc(TbCouponInfo::getCreateTime));
+        TableDataInfo rspData = new TableDataInfo();
+        rspData.setCode(HttpStatus.SUCCESS);
+        rspData.setMsg("查询成功");
+        rspData.setRows(result.getRecords());
+        rspData.setTotal(result.getTotal());
+        return rspData;
     }
 
     /**

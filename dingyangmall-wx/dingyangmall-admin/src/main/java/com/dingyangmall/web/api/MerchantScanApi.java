@@ -39,7 +39,11 @@ public class MerchantScanApi {
     public AjaxResult identifyUser(@PathVariable String memberCode) {
         UmsMember member = umsMemberService.getByMemberCode(memberCode);
         if (member == null) {
-            return AjaxResult.error("无效的会员码");
+            member = umsMemberService.getByPhone(memberCode);
+        }
+        
+        if (member == null) {
+            return AjaxResult.error("无效的会员码或手机号");
         }
         
         Map<String, Object> result = new HashMap<>();
@@ -66,7 +70,11 @@ public class MerchantScanApi {
         
         UmsMember member = umsMemberService.getByMemberCode(memberCode);
         if (member == null) {
-            return AjaxResult.error("无效的会员码");
+            member = umsMemberService.getByPhone(memberCode);
+        }
+        
+        if (member == null) {
+            return AjaxResult.error("无效的会员码或手机号");
         }
         
         // 获取当前操作的商家信息

@@ -1,0 +1,1 @@
+DESCRIBE goods_spu;

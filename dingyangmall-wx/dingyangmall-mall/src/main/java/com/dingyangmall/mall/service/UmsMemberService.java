@@ -11,4 +11,11 @@ public interface UmsMemberService extends IService<UmsMember> {
      * @return 会员对象
      */
     UmsMember getByMemberCode(String memberCode);
+
+    /**
+     * 根据手机号获取会员
+     * @param phone 手机号
+     * @return 会员对象
+     */
+    UmsMember getByPhone(String phone);
 }

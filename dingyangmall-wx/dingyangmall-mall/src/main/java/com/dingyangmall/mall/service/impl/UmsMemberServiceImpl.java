@@ -18,6 +18,11 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     }
 
     @Override
+    public UmsMember getByPhone(String phone) {
+        return getOne(Wrappers.<UmsMember>lambdaQuery().eq(UmsMember::getPhone, phone));
+    }
+
+    @Override
     public boolean save(UmsMember entity) {
         if (StringUtils.isEmpty(entity.getMemberCode())) {
             entity.setMemberCode(generateMemberCode());

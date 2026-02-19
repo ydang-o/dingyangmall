@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dingyangmall.common.core.controller.BaseController;
 import com.dingyangmall.common.core.domain.AjaxResult;
 import com.dingyangmall.common.core.page.TableDataInfo;
+import com.dingyangmall.common.constant.HttpStatus;
 import com.dingyangmall.mall.entity.TbLotteryConfig;
 import com.dingyangmall.mall.entity.TbLotteryRecord;
 import com.dingyangmall.mall.service.TbLotteryConfigService;
@@ -63,6 +64,12 @@ public class TbLotteryController extends BaseController {
     @GetMapping("/record/page")
     @PreAuthorize("@ss.hasPermi('mall:lottery:record')")
     public TableDataInfo getRecordPage(Page page, TbLotteryRecord tbLotteryRecord) {
-        return getDataTable(lotteryRecordService.page(page, Wrappers.query(tbLotteryRecord).lambda().orderByDesc(TbLotteryRecord::getCreateTime)));
+        com.baomidou.mybatisplus.core.metadata.IPage<TbLotteryRecord> result = lotteryRecordService.page(page, Wrappers.query(tbLotteryRecord).lambda().orderByDesc(TbLotteryRecord::getCreateTime));
+        TableDataInfo rspData = new TableDataInfo();
+        rspData.setCode(HttpStatus.SUCCESS);
+        rspData.setMsg("查询成功");
+        rspData.setRows(result.getRecords());
+        rspData.setTotal(result.getTotal());
+        return rspData;
     }
 }

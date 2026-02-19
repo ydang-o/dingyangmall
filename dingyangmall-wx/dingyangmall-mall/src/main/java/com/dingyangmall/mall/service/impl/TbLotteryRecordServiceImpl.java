@@ -14,6 +14,7 @@ import com.dingyangmall.mall.service.TbIntegralFlowService;
 import com.dingyangmall.mall.service.TbLotteryConfigService;
 import com.dingyangmall.mall.service.TbLotteryRecordService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ import java.util.List;
  * @author dingyangmall
  * @date 2026-02-13
  */
+@Slf4j
 @Service
 @AllArgsConstructor
 public class TbLotteryRecordServiceImpl extends ServiceImpl<TbLotteryRecordMapper, TbLotteryRecord> implements TbLotteryRecordService {
@@ -46,7 +48,7 @@ public class TbLotteryRecordServiceImpl extends ServiceImpl<TbLotteryRecordMappe
         }
 
         // 2. 检查每日限制
-        Integer count = baseMapper.selectCount(Wrappers.<TbLotteryRecord>lambdaQuery()
+        Long count = baseMapper.selectCount(Wrappers.<TbLotteryRecord>lambdaQuery()
                 .eq(TbLotteryRecord::getUserId, userId)
                 .ge(TbLotteryRecord::getCreateTime, LocalDate.now().atStartOfDay()));
         if (config.getDailyLimit() != null && count >= config.getDailyLimit()) {
@@ -111,7 +113,7 @@ public class TbLotteryRecordServiceImpl extends ServiceImpl<TbLotteryRecordMappe
                         try {
                             com.dingyangmall.mall.entity.TbCouponInfo coupon = couponInfoService.createCoupon(userId, goodsSpu.getId());
                             record.setGrantStatus("1");
-                            record.setBusinessId(coupon.getId());
+                            record.setBusinessId(String.valueOf(coupon.getId()));
                         } catch (Exception e) {
                             log.error("抽奖发放商品券失败: userId={}, goodsId={}", userId, goodsSpu.getId(), e);
                             record.setGrantStatus("0"); // 发放失败

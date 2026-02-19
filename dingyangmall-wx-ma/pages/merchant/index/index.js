@@ -5,7 +5,10 @@ Page({
     showUserModal: false,
     userInfo: {},
     pointsToGive: '',
-    memberCode: ''
+    memberCode: '',
+    showInputModal: false,
+    inputType: '',
+    manualCode: ''
   },
 
   onLoad() {
@@ -24,6 +27,50 @@ Page({
         this.fetchUserInfo(code)
       }
     })
+  },
+
+  showInputUser() {
+    this.setData({
+      showInputModal: true,
+      inputType: 'user',
+      manualCode: ''
+    })
+  },
+
+  showInputCoupon() {
+    this.setData({
+      showInputModal: true,
+      inputType: 'coupon',
+      manualCode: ''
+    })
+  },
+
+  hideInputModal() {
+    this.setData({
+      showInputModal: false
+    })
+  },
+
+  onManualInput(e) {
+    this.setData({
+      manualCode: e.detail.value
+    })
+  },
+
+  confirmManualInput() {
+    let code = this.data.manualCode
+    if (!code) {
+      wx.showToast({ title: '请输入内容', icon: 'none' })
+      return
+    }
+    
+    this.hideInputModal()
+    
+    if (this.data.inputType == 'user') {
+      this.fetchUserInfo(code)
+    } else {
+      this.verifyCoupon(code)
+    }
   },
 
   fetchUserInfo(code) {

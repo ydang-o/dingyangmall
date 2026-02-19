@@ -17,7 +17,7 @@
              <view class="cu-tag line-gray" wx:if="{{item.couponStatus == 2}}">已使用</view>
              <view class="cu-tag line-gray" wx:if="{{item.couponStatus == 3}}">已过期</view>
           </view>
-          <view class="margin-top-xs">券码：<text class="text-blue text-lg" bindtap="copyCode" data-code="{{item.couponCode}}">{{item.couponCode}}</text></view>
+          <view class="margin-top-xs">券码：<text class="text-blue text-xxl text-bold" bindtap="copyCode" data-code="{{item.couponCode}}">{{item.couponCode}}</text></view>
           <view class="margin-top-xs text-gray text-sm">有效期至：{{item.validityEnd}}</view>
         </view>
       </view>

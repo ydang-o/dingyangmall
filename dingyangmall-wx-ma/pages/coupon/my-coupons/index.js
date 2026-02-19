@@ -39,5 +39,14 @@ Page({
           })
         }
       })
+  },
+  copyCode(e) {
+    let code = e.currentTarget.dataset.code
+    wx.setClipboardData({
+      data: code,
+      success: function () {
+        wx.showToast({ title: '已复制' })
+      }
+    })
   }
 })
