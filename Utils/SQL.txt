@@ -1,0 +1,339 @@
+-- ----------------------------
+-- 通用设置：设置字符集、自增起始值
+-- ----------------------------
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+SET AUTO_INCREMENT = 1000; -- 主键自增起始值，区分测试/正式数据
+
+-- ----------------------------
+-- 1. 用户核心模块 - 用户信息表（所有角色基础账户）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user_info`;
+CREATE TABLE `tb_user_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-用户唯一ID',
+  `mobile` varchar(11) NOT NULL COMMENT '手机号-登录账号',
+  `password` varchar(64) NOT NULL COMMENT '登录密码-密文存储(MD5/SHA256)',
+  `user_name` varchar(50) NOT NULL COMMENT '用户名/经销商名称/客户姓名',
+  `role_type` tinyint NOT NULL COMMENT '角色类型：0-厂商 1-一级经销商 2-二级经销商 3-终端客户',
+  `dealer_level` tinyint DEFAULT NULL COMMENT '经销商层级：1-一级 2-二级(仅经销商非空)',
+  `integral_balance` bigint NOT NULL DEFAULT 0 COMMENT '当前积分余额-非负',
+  `head_img` varchar(255) DEFAULT '' COMMENT '用户头像/经销商logo URL',
+  `contact_person` varchar(20) DEFAULT '' COMMENT '联系人(仅经销商非空)',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '账户状态：0-禁用 1-启用',
+  `last_login_time` datetime DEFAULT NULL COMMENT '最后登录时间',
+  `recommend_mobile` varchar(11) DEFAULT '' COMMENT '推荐人手机号-注册时填写',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-操作人ID/账号',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_mobile` (`mobile`) COMMENT '手机号唯一索引',
+  KEY `idx_role_type` (`role_type`),
+  KEY `idx_dealer_level` (`dealer_level`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表-所有角色基础账户信息';
+
+-- ----------------------------
+-- 2. 用户核心模块 - 收货地址表（终端客户专属）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user_address`;
+CREATE TABLE `tb_user_address` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-地址ID',
+  `user_id` bigint NOT NULL COMMENT '关联用户ID-终端客户',
+  `receiver_name` varchar(20) NOT NULL COMMENT '收货人姓名',
+  `receiver_mobile` varchar(11) NOT NULL COMMENT '收货人手机号',
+  `province` varchar(30) NOT NULL COMMENT '省',
+  `city` varchar(30) NOT NULL COMMENT '市',
+  `area` varchar(30) NOT NULL COMMENT '区/县',
+  `detail_address` varchar(100) NOT NULL COMMENT '详细地址',
+  `is_default` tinyint NOT NULL DEFAULT 0 COMMENT '是否默认地址：0-否 1-是',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-用户ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`) COMMENT '用户ID索引-高频查询',
+  KEY `idx_is_default` (`is_default`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收货地址表-终端客户专属';
+
+-- ----------------------------
+-- 3. 积分核心模块 - 积分规则配置表（管理端配置）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_integral_rule`;
+CREATE TABLE `tb_integral_rule` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `register_integral` int NOT NULL DEFAULT 0 COMMENT '注册赠分数量',
+  `first_recharge_integral` int NOT NULL DEFAULT 0 COMMENT '首充赠分数量',
+  `sign_integral` int NOT NULL DEFAULT 10 COMMENT '每日签到赠分数量-默认10',
+  `recommend_integral` int NOT NULL DEFAULT 20 COMMENT '推荐注册赠分-默认20',
+  `red_packet_switch` tinyint NOT NULL DEFAULT 1 COMMENT '积分红包开关：0-关闭 1-开启',
+  `update_by` varchar(32) NOT NULL COMMENT '最后配置人-操作人ID',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='积分规则配置表-管理端统一配置';
+
+-- 插入默认积分规则-系统初始化
+INSERT INTO `tb_integral_rule` (`register_integral`, `first_recharge_integral`, `sign_integral`, `recommend_integral`, `red_packet_switch`, `update_by`) 
+VALUES (0, 50, 10, 20, 1, 'admin');
+
+-- ----------------------------
+-- 4. 积分核心模块 - 积分流水记录表（全平台积分变动追溯）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_integral_flow`;
+CREATE TABLE `tb_integral_flow` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-流水ID',
+  `user_id` bigint NOT NULL COMMENT '积分变动用户ID',
+  `oper_type` tinyint NOT NULL COMMENT '操作类型：0-平台分发 1-经销商赠送 2-签到获得 3-推荐奖励 4-兑换扣减 5-红包发送 6-红包接收 7-抽奖消耗 8-注册赠分 9-首充赠分',
+  `integral_num` int NOT NULL COMMENT '积分变动数量-正数增加 负数减少',
+  `source_user_id` bigint NOT NULL DEFAULT 0 COMMENT '来源用户ID-平台分发为0/赠送人ID/推荐人ID',
+  `business_id` varchar(32) DEFAULT '' COMMENT '关联业务ID-订单ID/券ID/抽奖ID',
+  `remark` varchar(100) DEFAULT '' COMMENT '操作备注-如“一级经销商XX赠送”',
+  `oper_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` varchar(32) NOT NULL COMMENT '操作人ID/系统',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`) COMMENT '用户ID索引-个人流水查询',
+  KEY `idx_oper_type` (`oper_type`) COMMENT '操作类型索引-筛选',
+  KEY `idx_oper_time` (`oper_time`) COMMENT '操作时间索引-按时间筛选',
+  KEY `idx_source_user_id` (`source_user_id`) COMMENT '来源用户ID-追溯赠送/分发'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='积分流水记录表-全平台每笔积分变动可追溯';
+
+-- ----------------------------
+-- 5. 商品核心模块 - 商品分类表（一级分类）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_goods_category`;
+CREATE TABLE `tb_goods_category` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-分类ID',
+  `category_name` varchar(30) NOT NULL COMMENT '分类名称',
+  `category_icon` varchar(255) DEFAULT '' COMMENT '分类图标URL',
+  `sort_num` int NOT NULL DEFAULT 0 COMMENT '排序号-数字越小越靠前',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-操作人ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_category_name` (`category_name`) COMMENT '分类名称唯一'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表-仅一级分类';
+
+-- 插入默认商品分类-系统初始化
+INSERT INTO `tb_goods_category` (`category_name`, `category_icon`, `sort_num`, `create_by`) 
+VALUES ('食品饮料', '', 1, 'admin'), ('家居用品', '', 2, 'admin'), ('数码配件', '', 3, 'admin'), ('美妆个护', '', 4, 'admin'), ('商品券专区', '', 5, 'admin');
+
+-- ----------------------------
+-- 6. 商品核心模块 - 商品信息表（支持实体/虚拟/商品券）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_goods_info`;
+CREATE TABLE `tb_goods_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-商品ID',
+  `goods_name` varchar(100) NOT NULL COMMENT '商品名称',
+  `category_id` bigint NOT NULL COMMENT '关联分类ID',
+  `goods_type` tinyint NOT NULL COMMENT '商品类型：0-实体 1-虚拟 2-商品券',
+  `integral_price` int NOT NULL COMMENT '商品积分价格-正整数',
+  `stock_num` int NOT NULL DEFAULT 0 COMMENT '库存数量-库存不足禁用兑换',
+  `goods_img` varchar(512) NOT NULL COMMENT '商品主图URL-多图逗号分隔',
+  `goods_desc` text COMMENT '商品描述-富文本',
+  `validity_days` int DEFAULT 0 COMMENT '券有效期天数-仅商品券用(0为永久)',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '商品状态：0-下架 1-上架',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-操作人ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_category_id` (`category_id`) COMMENT '分类ID索引-分类筛选',
+  KEY `idx_goods_type` (`goods_type`) COMMENT '商品类型索引-类型筛选',
+  KEY `idx_status` (`status`) COMMENT '上下架状态索引',
+  FULLTEXT KEY `ft_goods_name` (`goods_name`) COMMENT '商品名称全文索引-搜索'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品信息表-支持实体/虚拟/商品券三种类型';
+
+-- ----------------------------
+-- 7. 订单核心模块 - 订单信息表（实体/虚拟商品兑换订单）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_order_info`;
+CREATE TABLE `tb_order_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-订单ID',
+  `order_no` varchar(32) NOT NULL COMMENT '订单编号-唯一标识',
+  `user_id` bigint NOT NULL COMMENT '下单用户ID-终端客户',
+  `goods_id` bigint NOT NULL COMMENT '关联商品ID',
+  `goods_name` varchar(100) NOT NULL COMMENT '商品名称-冗余-避免联表',
+  `goods_type` tinyint NOT NULL COMMENT '商品类型：0-实体 1-虚拟',
+  `integral_price` int NOT NULL COMMENT '兑换积分价格-冗余',
+  `address_id` bigint DEFAULT 0 COMMENT '关联地址ID-虚拟商品为0',
+  `order_status` tinyint NOT NULL DEFAULT 1 COMMENT '订单状态：1-待发货 2-已发货 3-已完成',
+  `express_company` varchar(30) DEFAULT '' COMMENT '快递公司名称-仅实体商品',
+  `express_no` varchar(30) DEFAULT '' COMMENT '快递单号-仅实体商品',
+  `delivery_time` datetime DEFAULT NULL COMMENT '发货时间',
+  `confirm_time` datetime DEFAULT NULL COMMENT '确认收货时间-手动/自动',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-用户ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_order_no` (`order_no`) COMMENT '订单编号唯一',
+  KEY `idx_user_id` (`user_id`) COMMENT '用户ID索引-个人订单查询',
+  KEY `idx_order_status` (`order_status`) COMMENT '订单状态索引-筛选',
+  KEY `idx_create_time` (`create_time`) COMMENT '创建时间索引-按时间筛选',
+  KEY `idx_express_no` (`express_no`) COMMENT '快递单号索引-物流查询'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单信息表-实体/虚拟商品兑换订单';
+
+-- ----------------------------
+-- 8. 券核心模块 - 商品券信息表（商品券兑换记录）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_coupon_info`;
+CREATE TABLE `tb_coupon_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-券ID',
+  `coupon_code` varchar(16) NOT NULL COMMENT '商品券码-16位字母数字混合-唯一',
+  `user_id` bigint NOT NULL COMMENT '持有用户ID-终端客户',
+  `goods_id` bigint NOT NULL COMMENT '关联商品ID',
+  `goods_name` varchar(100) NOT NULL COMMENT '商品名称-冗余',
+  `integral_price` int NOT NULL COMMENT '兑换积分价格-冗余',
+  `validity_start` datetime DEFAULT NULL COMMENT '券有效期开始时间',
+  `validity_end` datetime NOT NULL COMMENT '券有效期结束时间',
+  `coupon_status` tinyint NOT NULL DEFAULT 1 COMMENT '券状态：1-未使用 2-已使用 3-已过期',
+  `verify_time` datetime DEFAULT NULL COMMENT '核销时间',
+  `verify_dealer_id` bigint DEFAULT 0 COMMENT '核销经销商ID-核销后填充',
+  `verify_dealer_name` varchar(50) DEFAULT '' COMMENT '核销经销商名称-冗余',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-用户ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_coupon_code` (`coupon_code`) COMMENT '券码唯一-核心索引',
+  KEY `idx_user_id` (`user_id`) COMMENT '用户ID索引-个人券查询',
+  KEY `idx_coupon_status` (`coupon_status`) COMMENT '券状态索引-筛选',
+  KEY `idx_validity_end` (`validity_end`) COMMENT '有效期索引-过期提醒',
+  KEY `idx_verify_dealer_id` (`verify_dealer_id`) COMMENT '核销经销商ID-统计'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品券信息表-兑换后生成券码记录';
+
+-- ----------------------------
+-- 9. 抽奖核心模块 - 抽奖活动配置表（管理端配置）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_lottery_config`;
+CREATE TABLE `tb_lottery_config` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `lottery_switch` tinyint NOT NULL DEFAULT 0 COMMENT '抽奖开关：0-关闭 1-开启',
+  `per_lottery_integral` int NOT NULL DEFAULT 10 COMMENT '单次抽奖消耗积分-默认10',
+  `daily_limit` int NOT NULL DEFAULT 3 COMMENT '每人每日抽奖次数上限-默认3',
+  `update_by` varchar(32) NOT NULL COMMENT '最后配置人-操作人ID',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动配置表-管理端统一配置';
+
+-- 插入默认抽奖配置-系统初始化
+INSERT INTO `tb_lottery_config` (`lottery_switch`, `per_lottery_integral`, `daily_limit`, `update_by`) 
+VALUES (0, 10, 3, 'admin');
+
+-- ----------------------------
+-- 10. 抽奖核心模块 - 抽奖奖品配置表（关联商品）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_lottery_prize`;
+CREATE TABLE `tb_lottery_prize` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-奖品ID',
+  `goods_id` bigint NOT NULL COMMENT '关联商品ID-0为未中奖',
+  `goods_name` varchar(100) NOT NULL COMMENT '奖品名称-冗余-未中奖为“谢谢参与”',
+  `win_probability` decimal(5,2) NOT NULL COMMENT '中奖概率-百分比(如10.00=10%)',
+  `stock_num` int NOT NULL DEFAULT 0 COMMENT '奖品库存-0为无限量',
+  `sort_num` int NOT NULL DEFAULT 0 COMMENT '展示排序号',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-操作人ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_goods_id` (`goods_id`) COMMENT '商品ID索引',
+  KEY `idx_sort_num` (`sort_num`) COMMENT '排序索引'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖奖品配置表-关联已上架商品';
+
+-- ----------------------------
+-- 11. 抽奖核心模块 - 用户抽奖记录表
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user_lottery`;
+CREATE TABLE `tb_user_lottery` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-抽奖ID',
+  `user_id` bigint NOT NULL COMMENT '抽奖用户ID',
+  `lottery_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '抽奖时间',
+  `consume_integral` int NOT NULL COMMENT '消耗积分数量',
+  `is_win` tinyint NOT NULL COMMENT '是否中奖：0-否 1-是',
+  `prize_id` bigint NOT NULL COMMENT '中奖品ID-关联奖品表',
+  `prize_name` varchar(100) NOT NULL COMMENT '奖品名称-冗余',
+  `business_id` varchar(32) DEFAULT '' COMMENT '关联业务ID-订单ID/券ID/积分流水ID',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-用户ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`) COMMENT '用户ID索引-个人抽奖记录',
+  KEY `idx_lottery_time` (`lottery_time`) COMMENT '抽奖时间索引',
+  KEY `idx_is_win` (`is_win`) COMMENT '是否中奖索引'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户抽奖记录表-记录所有抽奖行为';
+
+-- ----------------------------
+-- 12. 系统配置模块 - 快递公司配置表（管理端预置）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_express_company`;
+CREATE TABLE `tb_express_company` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `express_name` varchar(30) NOT NULL COMMENT '快递公司名称-如顺丰/圆通',
+  `express_code` varchar(20) DEFAULT '' COMMENT '快递公司编码-对接物流接口用',
+  `sort_num` int NOT NULL DEFAULT 0 COMMENT '排序号-数字越小越靠前',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态：0-禁用 1-启用',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` varchar(32) NOT NULL COMMENT '创建人-操作人ID',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_express_name` (`express_name`) COMMENT '快递公司名称唯一'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='快递公司配置表-管理端预置/新增';
+
+-- 插入常用快递公司-系统初始化
+INSERT INTO `tb_express_company` (`express_name`, `express_code`, `sort_num`, `status`, `create_by`) 
+VALUES ('顺丰速运', 'SF', 1, 1, 'admin'), ('圆通快递', 'YT', 2, 1, 'admin'), ('中通快递', 'ZT', 3, 1, 'admin'), ('韵达快递', 'YD', 4, 1, 'admin'), ('申通快递', 'ST', 5, 1, 'admin'), ('EMS', 'EMS', 6, 1, 'admin'), ('天天快递', 'TT', 7, 1, 'admin');
+
+-- ----------------------------
+-- 13. 系统日志模块 - 操作日志表（全平台操作追溯）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_operate_log`;
+CREATE TABLE `tb_operate_log` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键-日志ID',
+  `oper_user` varchar(32) NOT NULL COMMENT '操作人ID/账号',
+  `oper_user_name` varchar(50) NOT NULL COMMENT '操作人姓名/经销商名称',
+  `oper_role` tinyint NOT NULL COMMENT '操作人角色-关联用户表role_type',
+  `oper_module` varchar(30) NOT NULL COMMENT '操作模块-如账户管理/积分分发/商品上架',
+  `oper_type` varchar(20) NOT NULL COMMENT '操作类型-如新增/编辑/删除/分发/核销',
+  `oper_content` varchar(255) NOT NULL COMMENT '操作内容-如“新增一级经销商：XX公司”',
+  `oper_ip` varchar(20) DEFAULT '' COMMENT '操作IP地址',
+  `oper_device` varchar(50) DEFAULT '' COMMENT '操作设备-如PC/Android/IOS',
+  `oper_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+  `oper_status` tinyint NOT NULL DEFAULT 1 COMMENT '操作状态：0-失败 1-成功',
+  `error_msg` varchar(255) DEFAULT '' COMMENT '错误信息-操作失败时填充',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_oper_user` (`oper_user`) COMMENT '操作人索引',
+  KEY `idx_oper_module` (`oper_module`) COMMENT '模块索引',
+  KEY `idx_oper_time` (`oper_time`) COMMENT '时间索引-按时间筛选',
+  KEY `idx_oper_status` (`oper_status`) COMMENT '操作状态索引'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='操作日志表-全平台所有操作可追溯-永久保存';
+
+-- ----------------------------
+-- 14. 系统配置模块 - 全局功能开关表（扩展用）
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_system_switch`;
+CREATE TABLE `tb_system_switch` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `switch_name` varchar(50) NOT NULL COMMENT '开关名称-如推荐注册/短信验证/物流查询',
+  `switch_code` varchar(30) NOT NULL COMMENT '开关编码-唯一-如RECOMMEND/SMS_VERIFY/LOGISTICS',
+  `switch_status` tinyint NOT NULL DEFAULT 1 COMMENT '开关状态：0-关闭 1-开启',
+  `update_by` varchar(32) NOT NULL COMMENT '最后更新人',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识：0-未删除 1-逻辑删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_switch_code` (`switch_code`) COMMENT '开关编码唯一'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='全局功能开关表-系统扩展用';
+
+-- 插入默认功能开关-系统初始化
+INSERT INTO `tb_system_switch` (`switch_name`, `switch_code`, `switch_status`, `update_by`) 
+VALUES ('推荐注册奖励', 'RECOMMEND', 1, 'admin'), ('积分红包功能', 'INTEGRAL_RED_PACKET', 1, 'admin'), ('抽奖功能', 'LOTTERY', 0, 'admin'), ('短信验证', 'SMS_VERIFY', 1, 'admin'), ('物流查询', 'LOGISTICS', 1, 'admin');
+
+SET FOREIGN_KEY_CHECKS = 1;

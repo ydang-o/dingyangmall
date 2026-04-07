@@ -27,4 +27,9 @@ DELETE FROM sys_menu WHERE menu_id IN (
 -- 3. 删除 sys_menu 中的主菜单（用户管理、角色管理、菜单管理、部门管理、岗位管理、字典管理、参数设置）
 DELETE FROM sys_menu WHERE menu_id IN (100, 101, 102, 103, 104, 105, 106);
 
--- 执行后需重新登录，侧边栏将只显示：通知公告(107)、日志管理(108)及其子菜单
+-- 4. 删除系统监控：定时任务、数据监控、缓存监控、缓存列表
+DELETE FROM sys_role_menu WHERE menu_id IN (110, 111, 113, 114, 1049, 1050, 1051, 1052, 1053, 1054);
+DELETE FROM sys_menu WHERE menu_id IN (1049, 1050, 1051, 1052, 1053, 1054);
+DELETE FROM sys_menu WHERE menu_id IN (110, 111, 113, 114);
+
+-- 执行后需重新登录，侧边栏将只显示：通知公告(107)、日志管理(108)、在线用户(109)、服务监控(112)
